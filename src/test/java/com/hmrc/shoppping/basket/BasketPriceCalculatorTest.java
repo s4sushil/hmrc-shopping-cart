@@ -1,16 +1,14 @@
 package com.hmrc.shoppping.basket;
 
-import org.junit.Test;
-
-import com.hmrc.shoppping.model.ItemEnum;
-
-import rx.observables.BlockingObservable;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
+
+import rx.observables.BlockingObservable;
 
 public class BasketPriceCalculatorTest {
 
