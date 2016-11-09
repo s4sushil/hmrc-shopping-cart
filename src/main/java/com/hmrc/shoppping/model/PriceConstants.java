@@ -8,7 +8,7 @@ package com.hmrc.shoppping.model;
  */
 public class PriceConstants {
 	
-	public static final int APPLE_RATE = 60;
-	public static final int ORANGE_RATE = 25;
+	public static final double APPLE_RATE = 0.60;
+	public static final double ORANGE_RATE = 0.25;
 	
 }

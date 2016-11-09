@@ -18,15 +18,14 @@ public class BasketPriceCalculatorTest {
 	public void testActualPriceOfEmptyItemsInBasket() {
 		List<String> basket = Arrays.asList();
 		BasketPriceCalculator calc = new BasketPriceCalculator(basket);
-		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(0));
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(0.0));
 	}
 
 	@Test
 	public void testActualPriceOfBasketFullOfApples() {
-		List<String> basketOfApples = Arrays.asList(ItemEnum.APPLE.name(), ItemEnum.APPLE.name(),
-				ItemEnum.APPLE.name());
+		List<String> basketOfApples = Arrays.asList(ItemEnum.APPLE.name(), ItemEnum.APPLE.name());
 		BasketPriceCalculator calc = new BasketPriceCalculator(basketOfApples);
-		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(180));
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(1.20));
 	}
 
 	@Test
@@ -34,7 +33,7 @@ public class BasketPriceCalculatorTest {
 		List<String> basketOfOranges = Arrays.asList(ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(),
 				ItemEnum.ORANGE.name());
 		BasketPriceCalculator calc = new BasketPriceCalculator(basketOfOranges);
-		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(75));
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(0.75));
 	}
 
 	@Test
@@ -42,7 +41,7 @@ public class BasketPriceCalculatorTest {
 		List<String> basket = Arrays.asList(ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(), ItemEnum.APPLE.name(),
 				ItemEnum.APPLE.name());
 		BasketPriceCalculator calc = new BasketPriceCalculator(basket);
-		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(170));
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(1.70));
 	}
 
 	@Test
@@ -50,14 +49,14 @@ public class BasketPriceCalculatorTest {
 		List<String> basket = Arrays.asList(ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(),
 				ItemEnum.ORANGE.name(), ItemEnum.APPLE.name(), ItemEnum.APPLE.name(), ItemEnum.APPLE.name());
 		BasketPriceCalculator calc = new BasketPriceCalculator(basket);
-		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(280));
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(2.80));
 	}
 	
 	@Test
 	public void testPromotionalPriceOfEmptyItemsInBasket() {
 		List<String> basket = Arrays.asList();
 		BasketPriceCalculator calc = new BasketPriceCalculator(basket);
-		assertThat(BlockingObservable.from(calc.totalPromotionalActualPrice()).last(), is(0));
+		assertThat(BlockingObservable.from(calc.totalPromotionalActualPrice()).last(), is(0.0));
 	}
 
 	@Test
@@ -65,7 +64,7 @@ public class BasketPriceCalculatorTest {
 		List<String> basketOfApples = Arrays.asList(ItemEnum.APPLE.name(), ItemEnum.APPLE.name(),
 				ItemEnum.APPLE.name());
 		BasketPriceCalculator calc = new BasketPriceCalculator(basketOfApples);
-		assertThat(BlockingObservable.from(calc.totalPromotionalActualPrice()).last(), is(120));
+		assertThat(BlockingObservable.from(calc.totalPromotionalActualPrice()).last(), is(1.20));
 	}
 
 	@Test
@@ -73,7 +72,7 @@ public class BasketPriceCalculatorTest {
 		List<String> basketOfOranges = Arrays.asList(ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(),
 				ItemEnum.ORANGE.name());
 		BasketPriceCalculator calc = new BasketPriceCalculator(basketOfOranges);
-		assertThat(BlockingObservable.from(calc.totalPromotionalActualPrice()).last(), is(50));
+		assertThat(BlockingObservable.from(calc.totalPromotionalActualPrice()).last(), is(0.50));
 	}
 	
 	@Test
@@ -81,7 +80,7 @@ public class BasketPriceCalculatorTest {
 		List<String> basket = Arrays.asList(ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(),
 				ItemEnum.ORANGE.name(), ItemEnum.APPLE.name(), ItemEnum.APPLE.name(), ItemEnum.APPLE.name());
 		BasketPriceCalculator calc = new BasketPriceCalculator(basket);
-		assertThat(BlockingObservable.from(calc.totalPromotionalActualPrice()).last(), is(195));
+		assertThat(BlockingObservable.from(calc.totalPromotionalActualPrice()).last(), is(1.95));
 	}
 
 }
