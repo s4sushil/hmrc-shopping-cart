@@ -14,27 +14,43 @@ import static org.junit.Assert.assertThat;
 
 public class BasketPriceCalculatorTest {
 
-    @Test
-    public void testPriceOfEmptyItemsInBasket() {
-        List<String> basket = Arrays.asList();
-        BasketPriceCalculator calc = new BasketPriceCalculator(basket);
-        assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(0));
-    }
+	@Test
+	public void testActualPriceOfEmptyItemsInBasket() {
+		List<String> basket = Arrays.asList();
+		BasketPriceCalculator calc = new BasketPriceCalculator(basket);
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(0));
+	}
 
-    @Test
-    public void testPriceOfBasketFullOfApples() {
-        List<String> basketOfApples = Arrays.asList(ItemEnum.APPLE.name(), ItemEnum.APPLE.name(), ItemEnum.APPLE.name());
-        BasketPriceCalculator calc = new BasketPriceCalculator(basketOfApples);
-        assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(180));
-    }
+	@Test
+	public void testActualPriceOfBasketFullOfApples() {
+		List<String> basketOfApples = Arrays.asList(ItemEnum.APPLE.name(), ItemEnum.APPLE.name(),
+				ItemEnum.APPLE.name());
+		BasketPriceCalculator calc = new BasketPriceCalculator(basketOfApples);
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(180));
+	}
 
+	@Test
+	public void testActualPriceOfBasketFullOfOranges() {
+		List<String> basketOfOranges = Arrays.asList(ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(),
+				ItemEnum.ORANGE.name());
+		BasketPriceCalculator calc = new BasketPriceCalculator(basketOfOranges);
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(75));
+	}
 
-    @Test
-    public void testPriceOfBasketFullOfOranges() {
-        List<String> basketOfOranges = Arrays.asList(ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name());
-        BasketPriceCalculator calc = new BasketPriceCalculator(basketOfOranges);
-        assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(75));
-    }
+	@Test
+	public void testActualPriceOfBasketOfMultipleItems() {
+		List<String> basket = Arrays.asList(ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(),
+				ItemEnum.ORANGE.name(), ItemEnum.APPLE.name(), ItemEnum.APPLE.name(), ItemEnum.APPLE.name());
+		BasketPriceCalculator calc = new BasketPriceCalculator(basket);
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(280));
+	}
 
+	@Test
+	public void testActualPriceOfBasketOfMultipleMixedItems() {
+		List<String> basket = Arrays.asList(ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(), ItemEnum.ORANGE.name(),
+				ItemEnum.ORANGE.name(), ItemEnum.APPLE.name(), ItemEnum.APPLE.name(), ItemEnum.APPLE.name());
+		BasketPriceCalculator calc = new BasketPriceCalculator(basket);
+		assertThat(BlockingObservable.from(calc.totalActualPrice()).last(), is(280));
+	}
 
 }

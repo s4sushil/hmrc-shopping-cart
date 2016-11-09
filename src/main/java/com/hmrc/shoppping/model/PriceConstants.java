@@ -10,4 +10,5 @@ public class PriceConstants {
 	
 	public static final int APPLE_RATE = 60;
 	public static final int ORANGE_RATE = 25;
+	
 }
