@@ -3,7 +3,6 @@ package com.hmrc.shoppping.basket;
 import java.util.List;
 
 import com.hmrc.shoppping.model.ItemEnum;
-import com.hmrc.shoppping.model.PriceConstants;
 
 import rx.Observable;
 
@@ -21,9 +20,9 @@ public class BasketPriceCalculator {
 
 	public BasketPriceCalculator(List<String> basketItems) {
 		basketObservable = Observable.from(basketItems);
-		totalPriceObservable = Observable.merge(getApplePrice(), getOrangePrice()).scan(0.0, this::sum);
+		totalPriceObservable = Observable.merge(getApplePrice(), getOrangePrice()).reduce(0.0, Double::sum);
 		totalPromotionalPriceObservable = Observable.merge(getPromotionalApplePrice(), getPromotionalOrangePrice())
-				.scan(0.0, this::sum);
+				.reduce(0.0, Double::sum);
 	}
 
 	public Observable<Double> totalActualPrice() {
@@ -35,23 +34,22 @@ public class BasketPriceCalculator {
 	}
 
 	private Observable<Double> getApplePrice() {
-		return basketObservable.filter(ItemEnum.APPLE.name()::equals).map((eachOffer) -> PriceConstants.APPLE_RATE);
+		return basketObservable.filter(ItemEnum.APPLE.name()::equals).map((eachOffer) -> ItemEnum.APPLE.getPrice());
 	}
 
 	private Observable<Double> getOrangePrice() {
-		return basketObservable.filter(ItemEnum.ORANGE.name()::equals).map((eachOffer) -> PriceConstants.ORANGE_RATE);
+		return basketObservable.filter(ItemEnum.ORANGE.name()::equals).map((eachOffer) -> ItemEnum.ORANGE.getPrice());
 	}
 
 	private Observable<Double> getPromotionalApplePrice() {
-		return basketObservable.filter(ItemEnum.APPLE.name()::equals).buffer(2).map((eachOffer) -> PriceConstants.APPLE_RATE);
+		return basketObservable.filter(ItemEnum.APPLE.name()::equals).buffer(2)
+				.map((eachOffer) -> ItemEnum.APPLE.getPrice());
 	}
 
 	private Observable<Double> getPromotionalOrangePrice() {
 		return basketObservable.filter(ItemEnum.ORANGE.name()::equals).buffer(3)
-				.map((eachOffer) -> eachOffer.size() == 3 ? PriceConstants.ORANGE_RATE * 2 : PriceConstants.ORANGE_RATE * eachOffer.size());
+				.map((eachOffer) -> eachOffer.size() == 3 ? ItemEnum.ORANGE.getPrice() * 2
+						: ItemEnum.ORANGE.getPrice() * eachOffer.size());
 	}
 
-	private Double sum(Double acc, Double next) {
-		return acc + next;
-	}
 }

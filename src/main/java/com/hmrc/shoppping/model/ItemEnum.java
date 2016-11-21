@@ -8,10 +8,23 @@ package com.hmrc.shoppping.model;
  */
 public enum ItemEnum {
 
-    APPLE("Apple"),
-    ORANGE("Orange");
+    APPLE("Apple", 0.60),
+    ORANGE("Orange", 0.25);
 
-    ItemEnum(String itemName) {
+	private String itemName;
+	public String getItemName() {
+		return itemName;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	private Double price;
+	
+    ItemEnum(String itemName, Double price) {
+    	this.itemName = itemName;
+    	this.price = price;
     }
 
 }
